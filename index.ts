@@ -26,6 +26,12 @@ app.get('/api/genres', (req, res) => {
   res.status(200).send(genres);
 });
 
+// Get specific genre route
+app.get('/api/genres/:id', (req, res) => {
+  const genre = genres.find(genre => genre.id === parseInt(req.params.id));
+  return res.status(200).send(genre);
+});
+
 // Post genre route
 app.post('/api/genres', (req, res) => {
   const { error } = validateGenre(req.body);
