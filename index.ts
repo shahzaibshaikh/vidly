@@ -29,6 +29,7 @@ app.get('/api/genres', (req, res) => {
 // Get specific genre route
 app.get('/api/genres/:id', (req, res) => {
   const genre = genres.find(genre => genre.id === parseInt(req.params.id));
+  if (!genre) res.status(404).send('Genre not found.');
   return res.status(200).send(genre);
 });
 
