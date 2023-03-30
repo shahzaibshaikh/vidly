@@ -45,6 +45,22 @@ app.post('/api/genres', (req, res) => {
   res.status(200).send(genre);
 });
 
+// Updating existing genre
+app.put('/api/genres/:id', (req, res) => {
+  const genre: Genre | undefined = genres.find(
+    genre => genre.id === parseInt(req.params.id)
+  );
+  if (!genre) res.status(404).send('Genre does not exist.');
+
+  const { error } = validateGenre(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  if (genre) {
+    genre.name = req.body.name;
+    res.status(200).send(genre);
+  }
+});
+
 function validateGenre(genre) {
   const schema = Joi.object({
     name: Joi.string().min(3).required()
