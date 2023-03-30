@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
 });
 
 // Updating existing genre
-router.put('/api/genres/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const genre: Genre | undefined = genres.find(
     genre => genre.id === parseInt(req.params.id)
   );
@@ -59,7 +59,7 @@ router.put('/api/genres/:id', (req, res) => {
   }
 });
 
-router.delete('/api/genres/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const genre = genres.find(genre => genre.id === parseInt(req.params.id));
   if (!genre) res.status(404).send('Genre not found.');
 
