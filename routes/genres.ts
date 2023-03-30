@@ -20,19 +20,19 @@ router.get('/', (req, res) => {
 });
 
 // Get all genres route
-router.get('/api/genres', (req, res) => {
+router.get('/', (req, res) => {
   res.status(200).send(genres);
 });
 
 // Get specific genre route
-router.get('/api/genres/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const genre = genres.find(genre => genre.id === parseInt(req.params.id));
   if (!genre) res.status(404).send('Genre not found.');
   return res.status(200).send(genre);
 });
 
 // Post genre route
-router.post('/api/genres', (req, res) => {
+router.post('/', (req, res) => {
   const { error } = validateGenre(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const genre = {
