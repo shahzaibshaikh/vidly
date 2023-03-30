@@ -14,10 +14,6 @@ const genres = [
   { id: 3, name: 'Romance' }
 ];
 
-// Test route
-router.get('/', (req, res) => {
-  res.status(200).send('Server is up and running.');
-});
 
 // Get all genres route
 router.get('/', (req, res) => {
