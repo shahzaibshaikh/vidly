@@ -18,26 +18,27 @@ const genres = [
 
 // Get all genres route
 router.get("/", async (req, res) => {
-  const genres = await Genre.find();
+  const genres = await Genre.find().sort("name");
   res.status(200).send(genres);
 });
 
 // Get specific genre route
 router.get("/:id", (req, res) => {
-  const genre = genres.find((genre) => genre.id === parseInt(req.params.id));
+  const genre = Genre.findById(req.params.id);
   if (!genre) res.status(404).send("Genre not found.");
   return res.status(200).send(genre);
 });
 
 // Post genre route
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { error } = validateGenre(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-  const genre = {
-    id: genres.length + 1,
+
+  let genre = new Genre({
     name: req.body.name,
-  };
-  genres.push(genre);
+  });
+
+  genre = await genre.save();
   res.status(200).send(genre);
 });
 
