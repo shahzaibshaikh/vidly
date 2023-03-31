@@ -1,6 +1,5 @@
 import express from "express";
-import Joi from "joi";
-import Customer from "../models/Customer";
+import Customer, { validateCustomer } from "../models/Customer";
 
 const router = express.Router();
 
@@ -21,7 +20,7 @@ router.get("/:id", async (req, res) => {
 
 // Post genre route
 router.post("/", async (req, res) => {
-  const { error } = validateGenre(req.body);
+  const { error } = validateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let customer = new Customer({
@@ -36,7 +35,7 @@ router.post("/", async (req, res) => {
 
 // Updating existing genre
 router.put("/:id", async (req, res) => {
-  const { error } = validateGenre(req.body);
+  const { error } = validateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const customer = await Customer.findByIdAndUpdate(
@@ -56,14 +55,5 @@ router.delete("/:id", async (req, res) => {
 
   res.status(200).send("Customer deleted.");
 });
-
-function validateGenre(customer) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-    phone: Joi.string().min(3).max(50).required(),
-    isGold: Joi.boolean(),
-  });
-  return schema.validate(customer);
-}
 
 export default router;

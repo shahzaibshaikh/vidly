@@ -1,6 +1,5 @@
 import express from "express";
-import Joi from "joi";
-import Genre from "../models/Genre";
+import Genre, { validateGenre } from "../models/Genre";
 
 const router = express.Router();
 
@@ -54,12 +53,5 @@ router.delete("/:id", async (req, res) => {
 
   res.status(200).send("Genre deleted.");
 });
-
-function validateGenre(genre) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-  });
-  return schema.validate(genre);
-}
 
 export default router;
