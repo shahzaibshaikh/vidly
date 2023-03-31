@@ -1,5 +1,6 @@
 import express from "express";
 import Joi from "joi";
+import Genre from "../models/Genre";
 
 const router = express.Router();
 
@@ -16,7 +17,8 @@ const genres = [
 ];
 
 // Get all genres route
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+  const genres = await Genre.find();
   res.status(200).send(genres);
 });
 
