@@ -9,14 +9,14 @@ const CustomerSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      minLength: 5,
-      maxLength: 50,
+      minlength: 2,
+      maxlength: 50,
     },
     phone: {
       type: String,
       required: true,
-      minLength: 5,
-      maxLength: 50,
+      minlength: 5,
+      maxlength: 50,
     },
   },
   {
