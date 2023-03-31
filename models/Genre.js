@@ -2,7 +2,12 @@ import mongoose from "mongoose";
 
 const GenreSchema = new mongoose.Schema(
   {
-    key: { type: String },
+    name: {
+      type: String,
+      required: true,
+      minLength: 5,
+      maxLength: 50,
+    },
   },
   {
     timestamps: true,
