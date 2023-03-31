@@ -9,12 +9,6 @@ interface Genre {
   name: string;
 }
 
-const genres = [
-  { id: 1, name: "Action" },
-  { id: 2, name: "Horror" },
-  { id: 3, name: "Romance" },
-];
-
 // Get all genres route
 router.get("/", (req, res) => {
   res.status(200).send(genres);
