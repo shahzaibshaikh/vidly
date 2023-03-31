@@ -13,8 +13,8 @@ router.get("/", async (req, res) => {
 });
 
 // Get specific genre route
-router.get("/:id", (req, res) => {
-  const genre = Genre.findById(req.params.id);
+router.get("/:id", async (req, res) => {
+  const genre = await Genre.findById(req.params.id);
   if (!genre) return res.status(404).send("Genre not found.");
   return res.status(200).send(genre);
 });
