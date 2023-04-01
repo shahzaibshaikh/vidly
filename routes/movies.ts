@@ -5,8 +5,8 @@ const router = express.Router();
 
 // Get all genres route
 router.get("/", async (req, res) => {
-  const genres = await Movie.find().sort("name");
-  res.status(200).send(genres);
+  const movies = await Movie.find().sort("title");
+  res.status(200).send(movies);
 });
 
 // Get specific genre route
