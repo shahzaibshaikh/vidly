@@ -1,6 +1,4 @@
 import express from "express";
-import Fawn from "fawn";
-import mongoose from "mongoose";
 import Customer from "../models/Customer";
 import Movie from "../models/Movie";
 import Rental, { validateRental } from "../models/Rental";
