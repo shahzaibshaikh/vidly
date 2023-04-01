@@ -45,4 +45,4 @@ export function validateMovie(movie) {
   return schema.validate(movie);
 }
 
-module.exports = Movie;
+export default Movie;
