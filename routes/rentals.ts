@@ -27,6 +27,9 @@ router.post("/", async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.body.customerId))
     return res.status(400).send("Invalid customer ID");
 
+  if (!mongoose.Types.ObjectId.isValid(req.body.movieId))
+    return res.status(400).send("Invalid movie ID");
+
   const customer = await Customer.findById(req.body.customerId);
   if (!customer) return res.status(404).send("Customer not found.");
 
