@@ -1,3 +1,4 @@
+import Joi from "joi";
 import mongoose from "mongoose";
 
 const Rental = mongoose.model(
@@ -56,3 +57,14 @@ const Rental = mongoose.model(
     },
   })
 );
+
+export function validateRental(rental) {
+  const schema = Joi.object({
+    customerId: Joi.string().required(),
+    movieId: Joi.string().required(),
+  });
+
+  return schema.validate(rental);
+}
+
+export default Rental;
