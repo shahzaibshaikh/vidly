@@ -1,3 +1,4 @@
+import Joi from "joi";
 import mongoose from "mongoose";
 import { GenreSchema } from "./Genre";
 
@@ -33,5 +34,15 @@ const MovieSchema = new mongoose.Schema(
 );
 
 const Movie = mongoose.model("Movie", MovieSchema);
+
+export function validateMovie(movie) {
+  const schema = Joi.object({
+    title: Joi.string().min(2).max(255).required(),
+    genreId: Joi.string().required(),
+    numberInStock: Joi.number().min(0).max(255).required(),
+    dailyRentalRate: Joi.number().min(0).max(255).required(),
+  });
+  return schema.validate(movie);
+}
 
 module.exports = Movie;
