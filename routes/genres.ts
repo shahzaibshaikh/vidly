@@ -3,8 +3,6 @@ import Genre, { validateGenre } from "../models/Genre";
 
 const router = express.Router();
 
-// interfaces
-
 // Get all genres route
 router.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");

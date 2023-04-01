@@ -1,7 +1,7 @@
 import Joi from "joi";
 import mongoose from "mongoose";
 
-const GenreSchema = new mongoose.Schema(
+export const GenreSchema = new mongoose.Schema(
   {
     name: {
       type: String,
