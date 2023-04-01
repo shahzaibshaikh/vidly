@@ -3,20 +3,20 @@ import Movie, { validateMovie } from "../models/Movie";
 
 const router = express.Router();
 
-// Get all genres route
+// Get all movies route
 router.get("/", async (req, res) => {
   const movies = await Movie.find().sort("title");
   res.status(200).send(movies);
 });
 
-// Get specific genre route
+// Get specific movie route
 router.get("/:id", async (req, res) => {
   const genre = await Movie.findById(req.params.id);
   if (!genre) return res.status(404).send("Genre not found.");
   return res.status(200).send(genre);
 });
 
-// Post genre route
+// Post movie route
 router.post("/", async (req, res) => {
   const { error } = validateMovie(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
   res.status(200).send(genre);
 });
 
-// Updating existing genre
+// Updating existing movie
 router.put("/:id", async (req, res) => {
   const { error } = validateMovie(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -45,6 +45,7 @@ router.put("/:id", async (req, res) => {
   res.status(200).send(genre);
 });
 
+// Deleting a movie
 router.delete("/:id", async (req, res) => {
   const genre = await Movie.findByIdAndRemove(req.params.id);
   if (!genre) return res.status(404).send("Genre not found.");

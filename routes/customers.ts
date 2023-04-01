@@ -3,22 +3,20 @@ import Customer, { validateCustomer } from "../models/Customer";
 
 const router = express.Router();
 
-// interfaces
-
-// Get all genres route
+// Get all customers route
 router.get("/", async (req, res) => {
   const customer = await Customer.find().sort("name");
   res.status(200).send(customer);
 });
 
-// Get specific genre route
+// Get specific customer route
 router.get("/:id", async (req, res) => {
   const customer = await Customer.findById(req.params.id);
   if (!customer) return res.status(404).send("Customer not found.");
   return res.status(200).send(customer);
 });
 
-// Post genre route
+// Post customer route
 router.post("/", async (req, res) => {
   const { error } = validateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -33,7 +31,7 @@ router.post("/", async (req, res) => {
   res.status(200).send(customer);
 });
 
-// Updating existing genre
+// Updating existing customer
 router.put("/:id", async (req, res) => {
   const { error } = validateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -49,6 +47,7 @@ router.put("/:id", async (req, res) => {
   res.status(200).send(customer);
 });
 
+// Deleting a customer
 router.delete("/:id", async (req, res) => {
   const customer = await Customer.findByIdAndRemove(req.params.id);
   if (!customer) return res.status(404).send("Customer not found.");
