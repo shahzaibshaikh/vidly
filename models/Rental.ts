@@ -9,7 +9,7 @@ const Rental = mongoose.model(
         name: {
           type: String,
           required: true,
-          minlength: 5,
+          minlength: 3,
           maxlength: 50,
         },
         isGold: {
@@ -31,7 +31,7 @@ const Rental = mongoose.model(
           type: String,
           required: true,
           trim: true,
-          minlength: 5,
+          minlength: 3,
           maxlength: 255,
         },
         dailyRentalRate: {

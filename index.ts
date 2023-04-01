@@ -4,6 +4,7 @@ import dbConnect from "./config/dbConnect";
 import genresRouter from "./routes/genres";
 import customerRouter from "./routes/customers";
 import movieRouter from "./routes/movies";
+import rentalsRouter from "./routes/rentals";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/api/genres", genresRouter);
 app.use("/api/customers", customerRouter);
 app.use("/api/movies", movieRouter);
+app.use("/api/rentals", rentalsRouter);
 
 dbConnect();
 
