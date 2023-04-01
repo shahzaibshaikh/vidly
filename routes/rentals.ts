@@ -1,25 +1,27 @@
 import express from "express";
+import Fawn from "fawn";
+import mongoose from "mongoose";
 import Customer from "../models/Customer";
-import Genre from "../models/Genre";
 import Movie from "../models/Movie";
 import Rental, { validateRental } from "../models/Rental";
 
 const router = express.Router();
+Fawn.init(mongoose);
 
-// Get all movies route
+// Get all rentals route
 router.get("/", async (req, res) => {
   const rentals = await Rental.find().sort("-dateOut");
   res.status(200).send(rentals);
 });
 
-// Get specific movie route
+// Get specific rental route
 router.get("/:id", async (req, res) => {
   const rental = await Rental.findById(req.params.id);
   if (!rental) return res.status(404).send("Rental not found.");
   return res.status(200).send(rental);
 });
 
-// Post movie route
+// Post rental route
 router.post("/", async (req, res) => {
   const { error } = validateRental(req.body);
   if (error) return res.status(400).send(error.details[0].message);
