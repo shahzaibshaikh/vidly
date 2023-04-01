@@ -1,5 +1,7 @@
 import express from "express";
+import Customer from "../models/Customer";
 import Genre from "../models/Genre";
+import Movie from "../models/Movie";
 import Rental, { validateRental } from "../models/Rental";
 
 const router = express.Router();
@@ -19,24 +21,34 @@ router.get("/:id", async (req, res) => {
 
 // Post movie route
 router.post("/", async (req, res) => {
-  const { error } = validateMovie(req.body);
+  const { error } = validateRental(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = await Genre.findById(req.body.genreId);
-  if (!genre) return res.status(404).send("Genre not found.");
+  const customer = await Customer.findById(req.body.customerId);
+  if (!customer) return res.status(404).send("Customer not found.");
 
-  let movie = new Movie({
-    title: req.body.title,
-    genre: {
-      _id: req.body.genreId,
-      name: genre.name,
+  const movie = await Movie.findById(req.body.movieId);
+  if (!movie) return res.status(404).send("Movie not found.");
+
+  let rental = new Rental({
+    customer: {
+      _id: customer._id,
+      name: customer.name,
+      phone: customer.phone,
     },
-    numberInStock: req.body.numberInStock,
-    dailyRentalRate: req.body.dailyRentalRate,
+    movie: {
+      _id: movie._id,
+      title: movie.title,
+      dailyRentalRate: movie.dailyRentalRate,
+    },
   });
 
-  movie = await movie.save();
-  res.status(200).send(movie);
+  rental = await rental.save();
+
+  movie.numberInStock--;
+  movie.save();
+
+  res.status(200).send(rental);
 });
 
 // Updating existing movie
